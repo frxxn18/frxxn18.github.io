@@ -1,8 +1,47 @@
 // ==========================================================
 // Portfolio de Fran (frxxn18)
-// Efecto de escritura, animaciones de aparición,
-// barras de nivel y contadores de estadísticas
+// Carrusel de tecnologías, efecto de escritura, animaciones
+// de aparición, barras de nivel, contadores, barra de
+// progreso, enlace activo en la nav y botón de volver arriba
 // ==========================================================
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ---------- carrusel de tecnologías ----------
+// [nombre visible, slug en cdn.simpleicons.org]
+const TECHS = [
+  ["JavaScript", "javascript"],
+  ["TypeScript", "typescript"],
+  ["React", "react"],
+  ["React Native", "react"],
+  ["Tauri", "tauri"],
+  ["Electron", "electron"],
+  ["Laravel", "laravel"],
+  ["PHP", "php"],
+  ["Python", "python"],
+  ["Sass", "sass"],
+  ["Bootstrap", "bootstrap"],
+  ["Tailwind CSS", "tailwindcss"],
+  ["MySQL", "mysql"],
+  ["MariaDB", "mariadb"],
+  ["MongoDB", "mongodb"],
+  ["SQLite", "sqlite"],
+  ["HTML5", "html5"],
+  ["CSS", "css"],
+  ["Git", "git"],
+];
+
+const track = document.getElementById("mq-track");
+if (track) {
+  // dos copias de la lista para que el bucle sea continuo
+  const items = TECHS.concat(TECHS)
+    .map(
+      ([name, slug]) =>
+        `<span class="mq-item"><img class="mq-logo" src="https://cdn.simpleicons.org/${slug}" alt="" width="17" height="17" loading="lazy">${name}</span>`
+    )
+    .join("");
+  track.innerHTML = items;
+}
 
 // ---------- efecto de escritura en el hero ----------
 const ROLES = [
@@ -41,7 +80,6 @@ function typeLoop(roleIndex = 0) {
   tick();
 }
 
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (typedEl) {
   if (reduceMotion) {
     typedEl.textContent = ROLES[0];
@@ -69,7 +107,14 @@ function animateCount(el) {
   requestAnimationFrame(step);
 }
 
-// ---------- aparición al hacer scroll ----------
+// ---------- aparición al hacer scroll (escalonada) ----------
+// los .reveal hermanos dentro del mismo contenedor aparecen en cascada
+document.querySelectorAll("section, .hero-grid, .grid, .contact-grid").forEach((parent) => {
+  parent.querySelectorAll(":scope > .reveal, :scope > * > .reveal").forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i * 90, 450)}ms`;
+  });
+});
+
 const io = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -91,3 +136,45 @@ const io = new IntersectionObserver(
 );
 
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+// ---------- barra de progreso de scroll ----------
+const progress = document.getElementById("progress");
+
+// ---------- botón de volver arriba ----------
+const toTop = document.getElementById("toTop");
+if (toTop) {
+  toTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
+function onScroll() {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  if (progress) {
+    progress.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : "0%";
+  }
+  if (toTop) {
+    toTop.classList.toggle("show", window.scrollY > 600);
+  }
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+// ---------- enlace activo en la nav ----------
+const navLinks = [...document.querySelectorAll(".nav-links a")];
+const sections = navLinks
+  .map((a) => document.querySelector(a.getAttribute("href")))
+  .filter(Boolean);
+
+const navIo = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((a) =>
+        a.classList.toggle("active", a.getAttribute("href") === `#${entry.target.id}`)
+      );
+    });
+  },
+  { rootMargin: "-40% 0px -55% 0px" }
+);
+sections.forEach((s) => navIo.observe(s));

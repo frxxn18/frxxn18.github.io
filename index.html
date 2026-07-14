@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
+
 <nav>
   <div class="nav-inner">
     <a class="brand" href="#top"><span class="accent">~/</span>frxxn18</a>
@@ -61,6 +63,7 @@
       <div class="chips pc-chips">
         <span class="chip">HTML/CSS</span><span class="chip">TypeScript</span>
         <span class="chip">React</span><span class="chip">Tauri</span>
+        <span class="chip">Electron</span><span class="chip">React Native</span>
         <span class="chip">PHP</span><span class="chip">Python</span>
       </div>
       <ul class="pc-rows">
@@ -82,10 +85,7 @@
 
 <!-- ============ CARRUSEL DE TECNOLOGÍAS ============ -->
 <div class="marquee" aria-label="Tecnologías que manejo">
-  <div class="marquee-track">
-    <span class="mq-item">JavaScript</span><span class="mq-item">TypeScript</span><span class="mq-item">React</span><span class="mq-item">Tauri</span><span class="mq-item">Laravel</span><span class="mq-item">PHP</span><span class="mq-item">Python</span><span class="mq-item">Sass</span><span class="mq-item">Bootstrap</span><span class="mq-item">Tailwind CSS</span><span class="mq-item">MySQL</span><span class="mq-item">MariaDB</span><span class="mq-item">MongoDB</span><span class="mq-item">SQLite</span><span class="mq-item">HTML5</span><span class="mq-item">CSS3</span><span class="mq-item">Git</span>
-    <span class="mq-item">JavaScript</span><span class="mq-item">TypeScript</span><span class="mq-item">React</span><span class="mq-item">Tauri</span><span class="mq-item">Laravel</span><span class="mq-item">PHP</span><span class="mq-item">Python</span><span class="mq-item">Sass</span><span class="mq-item">Bootstrap</span><span class="mq-item">Tailwind CSS</span><span class="mq-item">MySQL</span><span class="mq-item">MariaDB</span><span class="mq-item">MongoDB</span><span class="mq-item">SQLite</span><span class="mq-item">HTML5</span><span class="mq-item">CSS3</span><span class="mq-item">Git</span>
-  </div>
+  <div class="marquee-track" id="mq-track"></div>
 </div>
 
 <!-- ============ TIMELINE ============ -->
@@ -175,7 +175,7 @@
       </div>
       <ul class="about-rows">
         <li><span class="arrow">›</span>Activo en GitHub: <a href="https://github.com/frxxn18" target="_blank" rel="noopener">frxxn18</a></li>
-        <li><span class="arrow">›</span>Apps de escritorio y móvil con Tauri</li>
+        <li><span class="arrow">›</span>Apps de escritorio y móvil con Tauri, Electron y React Native</li>
         <li><span class="arrow">›</span>Deploy: GitHub Pages y GitHub Releases</li>
         <li><span class="arrow">›</span>Entorno de trabajo: Linux</li>
         <li><span class="arrow">›</span>Aprendiendo algo nuevo en cada proyecto</li>
@@ -306,6 +306,12 @@
     <p>Fran · frxxn18 — hecho a mano, sin plantillas</p>
   </div>
 </footer>
+
+<button class="to-top" id="toTop" aria-label="Volver arriba">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
 
 <script src="js/main.js"></script>
 </body>
