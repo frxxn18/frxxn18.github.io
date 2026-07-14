@@ -7,8 +7,8 @@
 // ---------- efecto de escritura en el hero ----------
 const ROLES = [
   "desarrollador web",
+  "desarrollador multiplataforma",
   "estudiante de DAW",
-  "creador de apps multiplataforma",
   "autodidacta por naturaleza",
 ];
 
